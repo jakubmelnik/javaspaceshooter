@@ -71,7 +71,7 @@ public class Main extends ApplicationAdapter {
             playerSprite.translateX(-speed * delta);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-
+            //TODO: spawn beam and make it shoot upwards.
         }
     }
 
@@ -105,8 +105,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void createEnemies(){
-        float enemyWidth = 1, enemyHeight = 1;
-        float gameWidth = viewport.getWorldWidth(), gameHeight = viewport.getWorldHeight();
+        float enemyHeight = 1, gameHeight = viewport.getWorldHeight();
 
         Sprite enemy = new Sprite(enemyTexture);
         enemy.setSize(1,1);
@@ -115,7 +114,7 @@ public class Main extends ApplicationAdapter {
         enemies.add(enemy);
     }
 
-    private void createBeam(){
+    private void createBeam(){ // TODO: konczenie funkcji
         float playerWidth = playerSprite.getWidth();
         float playerHeight = playerSprite.getHeight();
     }
