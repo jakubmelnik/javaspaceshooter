@@ -25,6 +25,7 @@ public class Main extends ApplicationAdapter {
 
     Sprite playerSprite;
 
+    Array<Sprite> beams;
     Array<Sprite> enemies;
 
     @Override
@@ -44,6 +45,7 @@ public class Main extends ApplicationAdapter {
         playerSprite.setX(7);
 
         enemies = new Array<>();
+        beams = new Array<>();
         createEnemies();
     }
 
@@ -70,8 +72,8 @@ public class Main extends ApplicationAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             playerSprite.translateX(-speed * delta);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            //TODO: spawn beam and make it shoot upwards.
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            createBeam();
         }
     }
 
@@ -82,6 +84,9 @@ public class Main extends ApplicationAdapter {
         float delta = Gdx.graphics.getDeltaTime();
         for (Sprite enemy: enemies){
             enemy.translateX(2f * delta);
+        }
+        for (Sprite beam: beams){
+            beam.translateY(8f * delta);
         }
     }
 
@@ -95,12 +100,15 @@ public class Main extends ApplicationAdapter {
         float gameHeight = viewport.getWorldHeight();
 
         spriteBatch.draw(backgroundTexture, 0, 0, gameWidth, gameHeight);
-        playerSprite.draw(spriteBatch);
+
 
         for (Sprite enemy : enemies){
             enemy.draw(spriteBatch);
         }
-
+        for (Sprite beam : beams){
+            beam.draw(spriteBatch);
+        }
+        playerSprite.draw(spriteBatch);
         spriteBatch.end();
     }
 
@@ -114,8 +122,11 @@ public class Main extends ApplicationAdapter {
         enemies.add(enemy);
     }
 
-    private void createBeam(){ // TODO: konczenie funkcji
-        float playerWidth = playerSprite.getWidth();
-        float playerHeight = playerSprite.getHeight();
+    private void createBeam(){
+        Sprite beam = new Sprite(beamTexture);
+        beam.setSize(0.2f,0.6f);
+        beam.setX(playerSprite.getX()+(playerSprite.getWidth()/2)-(beam.getWidth()/2));
+        beam.setY(playerSprite.getY());
+        beams.add(beam);
     }
 }
