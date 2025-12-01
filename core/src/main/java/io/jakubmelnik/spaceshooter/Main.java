@@ -9,8 +9,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Os;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
@@ -27,6 +32,7 @@ public class Main extends ApplicationAdapter {
 
     Array<Sprite> beams;
     Array<Sprite> enemies;
+    long cooldownLeft=0;
 
     @Override
     public void create() {
@@ -66,6 +72,7 @@ public class Main extends ApplicationAdapter {
         float speed = 9;
         float delta = Gdx.graphics.getDeltaTime();
 
+
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             playerSprite.translateX(speed * delta);
         }
@@ -73,7 +80,13 @@ public class Main extends ApplicationAdapter {
             playerSprite.translateX(-speed * delta);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            createBeam();
+            long timeNow = System.currentTimeMillis();
+            if (timeNow - cooldownLeft >= 1000){
+                cooldownLeft = timeNow;
+                createBeam();
+            } else {
+                System.out.println("cooldown");
+            }
         }
     }
 
