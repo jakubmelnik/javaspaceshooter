@@ -114,7 +114,6 @@ public class Main extends ApplicationAdapter {
 
         spriteBatch.draw(backgroundTexture, 0, 0, gameWidth, gameHeight);
 
-
         for (Sprite enemy : enemies){
             enemy.draw(spriteBatch);
         }
